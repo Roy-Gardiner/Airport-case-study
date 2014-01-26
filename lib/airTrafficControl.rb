@@ -9,7 +9,7 @@ class AirTrafficControl
 	def new_plane
   	this_plane = Plane.new
   	self.planes= this_plane
-  	this_plane.status
+  	this_plane
   end 
 
 	def planes 

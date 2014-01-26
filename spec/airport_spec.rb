@@ -15,14 +15,40 @@ describe Airport do
     
   context 'taking off and landing' do
     it 'a plane can land' do
+      weather = double("weather", :good_to_fly? => true, :good_to_land? => true )
+      plane = atc.new_plane
+      expect(plane.status).to eq(:flying)
+
+      all_planes = atc.planes
+      all_planes.each_with_index {|plane, i| 
+        plane.land(airport,weather)
+        expect(plane.status).to eq(:landed)
+        expect(airport.planes?).to eq(i + 1)
+      }
+      expect(plane.status).to eq(:landed)
     end
     
     it 'a plane can take off' do
+      weather = double("weather", :good_to_fly? => true, :good_to_land? => true )
+      
+      plane = atc.new_plane
+      expect(plane.status).to eq(:flying)
+      plane.land(airport,weather)
+      expect(plane.status).to eq(:landed)
+      plane.takeoff(airport,weather)
+      expect(plane.status).to eq(:flying)
     end
   end
   
   context 'traffic control' do
     it 'a plane cannot land if the airport is full' do
+      weather = double("weather", :good_to_fly? => true, :good_to_land? => true )
+      airport = double("airport", :is_full? => true)
+
+      plane = atc.new_plane
+      expect(plane.status).to eq(:flying)
+      plane.land(airport,weather)
+      expect(plane.status).to eq(:flying)
     end
     
     # Include a weather condition using a module.
@@ -34,9 +60,28 @@ describe Airport do
     # the plane can not land, and must not be in the airport
     context 'weather conditions' do
       it 'a plane cannot take off when there is a storm brewing' do
+        weather = double("weather", :good_to_fly? => true, :good_to_land? => true )
+      
+        plane = atc.new_plane
+        expect(plane.status).to eq(:flying)
+        plane.land(airport,weather)
+        expect(plane.status).to eq(:landed)
+
+         weather = double("weather", :good_to_fly? => false, :good_to_land? => true )
+
+        plane.takeoff(airport,weather)
+        expect(plane.status).to eq(:landed)        
       end
       
       it 'a plane cannot land in the middle of a storm' do
+
+        weather = double("weather", :good_to_fly? => true, :good_to_land? => false )
+      
+        plane = atc.new_plane
+        expect(plane.status).to eq(:flying)
+        plane.land(airport,weather)
+        expect(plane.status).to eq(:flying)
+
       end
     end
   end
