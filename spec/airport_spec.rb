@@ -1,5 +1,6 @@
 require 'airport'
 require 'plane'
+#include AirTrafficControl
  
 # A plane currently in the airport can be requested to take off.
 #
@@ -9,7 +10,7 @@ require 'plane'
 # If the airport is full then no planes can land
 describe Airport do
   let(:airport) { Airport.new }
-  
+    
   context 'taking off and landing' do
     it 'a plane can land' do
     end
@@ -39,28 +40,7 @@ describe Airport do
   end
 end
  
-# When we create a new plane, it should have a "flying" status, thus planes can not be created in the airport.
-#
-# When we land a plane at the airport, the plane in question should have its status changed to "landed"
-#
-# When the plane takes of from the airport, the plane's status should become "flying"
-describe Plane do
- 
-  let(:plane) { Plane.new }
-  
-  it 'has a flying status when created' do
-    expect(plane.flying?).to eq(true)
-  end
-  
-  it 'has a flying status when in the air' do
-  end
-  
-  it 'can take off' do
-  end
-  
-  it 'changes its status to flying after taking of' do
-  end
-end
+
  
 # grand final
 # Given 6 planes, each plane must land. When the airport is full, every plane must take off again.
