@@ -10,13 +10,10 @@ require 'rspec/mocks'
 describe Plane do
   let(:airport) { Airport.new }
   let(:atc) { AirTrafficControl.new }
-  #let(:plane1) { Plane.new(atc) }
   let(:weather) { Weather.new}
-   # weather = double("weather", :good_to_fly => :false)
  
   
   it 'has a flying status when created' do
-  
     atc.new_plane
     expect(atc.planes.length).to eq(1)
     atc.new_plane
@@ -45,7 +42,7 @@ describe Plane do
 
     all_planes = atc.planes
     all_planes.each {|plane| 
-      plane.land(airport)
+      plane.land(airport,weather)
       expect(plane.status).to eq(:landed)}
     
   end
@@ -60,17 +57,16 @@ describe Plane do
 
     all_planes = atc.planes
     all_planes.each {|plane| 
-      plane.land(airport)
+      plane.land(airport,weather)
       expect(plane.status).to eq(:landed)
     }
     all_planes.each {|plane| 
-      plane.takeoff(weather)
+      plane.takeoff(airport,weather)
       expect(plane.status).to eq(:flying)
     }
   end 
   it "respects weather" do
 
-    #puts " weather #{weather.good_to_fly?}"  
     atc.new_plane
     atc.new_plane
     atc.new_plane
@@ -79,16 +75,16 @@ describe Plane do
     weather.good_to_fly = false
 
     all_planes = atc.planes
-    all_planes.each {|plane| 
-      plane.land(airport)
+
+    all_planes.each_with_index {|plane, i| 
+      plane.land(airport,weather)
       expect(plane.status).to eq(:landed)
+      expect(airport.planes?).to eq(i + 1)
     }
     all_planes.each {|plane| 
-      plane.takeoff(weather)
+      plane.takeoff(airport,weather)
       expect(plane.status).to eq(:landed)
+      expect(airport.planes?).to eq(4)
     }
-  
-
-
   end
 end

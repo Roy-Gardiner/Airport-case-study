@@ -10,13 +10,24 @@ class Plane
 #	end
 
 	
-	def takeoff weather
+	def takeoff airport, weather
 
-		self.status= weather.good_to_fly? ? :flying : :landed
+		if weather.good_to_fly?
+			self.status=  :flying
+			airport.taken_off
+		else
+			self.status=  :landed
+		end	
 	end
 
-	def land airport
-		self.status= :landed
+	def land airport, weather
+		
+		if !airport.is_full? && weather.good_to_land?
+			self.status=  :landed 
+			airport.landed
+		else
+			self.status=  :flying			
+		end	
 	end
 
 end

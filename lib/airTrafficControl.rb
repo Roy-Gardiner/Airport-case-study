@@ -7,9 +7,9 @@ class AirTrafficControl
 	end
 
 	def new_plane
-  	pl = Plane.new
-  	self.planes= pl
-  	pl.status
+  	this_plane = Plane.new
+  	self.planes= this_plane
+  	this_plane.status
   end 
 
 	def planes 
@@ -20,6 +20,6 @@ class AirTrafficControl
 	end
 	
 	def planes_flying?
-		@planes != []
+		planes != []
 	end
 end

@@ -14,10 +14,23 @@ class Airport
 
   def initialize(options = {})
   	self.capacity = options.fetch(:capacity,capacity)
-  	@planes = []
+  	#@planes = []
+  	@planes_landed = 0
 	end	
 
-	def planes_landed
-		@planes_landed ||= []
+	def is_full?
+		@planes_landed == @capacity
+	end
+	
+	def planes?
+		@planes_landed
+	end
+	
+	def landed 
+		@planes_landed += 1
+	end
+	
+	def taken_off
+		@planes_landed -= 1
 	end
 end

@@ -10,6 +10,8 @@ require 'plane'
 # If the airport is full then no planes can land
 describe Airport do
   let(:airport) { Airport.new }
+  let(:atc) { AirTrafficControl.new }
+  let(:weather) { Weather.new}
     
   context 'taking off and landing' do
     it 'a plane can land' do
@@ -48,6 +50,34 @@ end
 # Check when all the planes have landed that they have the right status "landed"
 # Once all the planes are in the air again, check that they have the status of flying!
 describe "The gand finale (last spec)" do
+  let(:airport) { Airport.new }
+  let(:atc) { AirTrafficControl.new }
+  let(:weather) { Weather.new}
+
   it 'all planes can land and all planes can take off' do
+    airport.capacity= 6
+    atc.new_plane
+    atc.new_plane
+    atc.new_plane
+    atc.new_plane
+    atc.new_plane
+    atc.new_plane
+
+    weather.good_to_fly = true
+
+    all_planes = atc.planes
+
+    all_planes.each_with_index {|plane, i| 
+      plane.land(airport,weather)
+      expect(plane.status).to eq(:landed)
+      expect(airport.planes?).to eq(i + 1)
+    }
+    expected_count = all_planes.length
+    all_planes.each {|plane| 
+      plane.takeoff(airport,weather)
+      expect(plane.status).to eq(:flying)
+      expected_count -= 1
+      expect(airport.planes?).to eq(expected_count)
+    }
   end
 end
