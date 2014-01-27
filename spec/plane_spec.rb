@@ -12,7 +12,8 @@ describe Plane do
   let(:atc) { AirTrafficControl.new }
   let(:weather) { Weather.new}
  
-  
+  # So, this file is all about testing the plane
+  # Why is this test focusing on the ATC?
   it 'has a flying status when created' do
     atc.new_plane
     expect(atc.planes.length).to eq(1)
@@ -23,17 +24,14 @@ describe Plane do
     expect(atc.planes_flying?).to eq(true)
   end
   
+  # You absolutely don't need the ATC to test this
   it 'has a flying status when in the air' do
-    atc.new_plane
-    atc.new_plane
-    atc.new_plane
-    atc.new_plane
-
-    all_planes = atc.planes
-    all_planes.each {|plane| 
+    4.times { atc.new_plane }    
+    atc.planes.each {|plane| 
       expect(plane.status).to eq(:flying)}
   end
   
+  # Again, just use the plane
   it 'can land' do
     atc.new_plane
     atc.new_plane
@@ -53,6 +51,8 @@ describe Plane do
     atc.new_plane
     atc.new_plane
     # can't make 'double' work so use this workardound
+    # You're right, it's a workaround, you should have used
+    # doubles or stubbing instead
     weather.good_to_fly= true
 
     all_planes = atc.planes

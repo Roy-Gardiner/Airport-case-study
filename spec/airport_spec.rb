@@ -1,3 +1,6 @@
+# My main issue with this test file is that it tests several classes at once
+# instead of concentrating on the airport (this isn't applicable to the grand finale, though)
+
 require 'airport'
 require 'plane'
 #include AirTrafficControl
@@ -101,12 +104,7 @@ describe "The gand finale (last spec)" do
 
   it 'all planes can land and all planes can take off' do
     airport.capacity= 6
-    atc.new_plane
-    atc.new_plane
-    atc.new_plane
-    atc.new_plane
-    atc.new_plane
-    atc.new_plane
+    airport.capacity.times { atc.new_plane }
 
     weather.good_to_fly = true
 
@@ -115,7 +113,7 @@ describe "The gand finale (last spec)" do
     all_planes.each_with_index {|plane, i| 
       plane.land(airport,weather)
       expect(plane.status).to eq(:landed)
-      expect(airport.planes?).to eq(i + 1)
+      expect(airport.planes?).to eq(i + 1) # a method that ends with "?" must return a boolean, not a number
     }
     expected_count = all_planes.length
     all_planes.each {|plane| 
