@@ -1,5 +1,10 @@
 require_relative 'airTrafficControl'
 
+# So, this class doesn't include or use ATC that actually has the planes.
+# The only thing this class does is to count the number of planes.
+# It's a really unconventional way to split the responsibility: one class
+# holds the planes but doesn't care about their number (ATC) and another one
+# knows the capacity and planes number but doesn't hold the planes (Airport)
 class Airport
 
 	DEFAULT_CAPACITY = 5

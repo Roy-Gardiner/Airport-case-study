@@ -1,5 +1,6 @@
 require 'plane'
 
+# the file name should use snake_case: air_traffic_control.rb
 class AirTrafficControl
 
 	def initialize
@@ -8,6 +9,8 @@ class AirTrafficControl
 
 	def new_plane
   	this_plane = Plane.new
+    # this notation implies that you're assigning the entire attribute planes
+    # You should have done either self.planes << this_plane or self << this_plane
   	self.planes= this_plane
   	this_plane
   end 
@@ -15,11 +18,17 @@ class AirTrafficControl
 	def planes 
 		@planes ||= []
 	end
+
+  # the method name doesn't make sense
+  # because it implies reassignment of the entire attribute
+  # and not simply a modification
+  # you could have done
+  # def << plane  
 	def planes= plane 
 		@planes << plane
 	end
 	
 	def planes_flying?
-		planes != []
+		!planes.empty?
 	end
 end
