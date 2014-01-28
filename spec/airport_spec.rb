@@ -6,11 +6,14 @@ require 'plane'
 #include AirTrafficControl
  
 # A plane currently in the airport can be requested to take off.
+# By ATC?  Fair enough, no attempt to do that
 #
 # No more planes can be added to the airport, if it's full.
+# Done, I think
 # It is up to you how many planes can land in the airport and how that is impermented.
 #
 # If the airport is full then no planes can land
+# Also done
 describe Airport do
   let(:airport) { Airport.new }
   let(:atc) { AirTrafficControl.new }
@@ -55,12 +58,16 @@ describe Airport do
     end
     
     # Include a weather condition using a module.
+    # Hmm I only had ATC talking to the weather.
     # The weather must be random and only have two states "sunny" or "stormy".
+    # Doubles used to simulate weather, two states have different names (none given in spec), is
+    # that a problem?
     # Try and take off a plane, but if the weather is stormy, the plane can not take off and must remain in the airport.
-    # 
+    # All that's done, I think.
     # This will require stubbing to stop the random return of the weather.
     # If the airport has a weather condition of stormy,
     # the plane can not land, and must not be in the airport
+    # Planes must be forced to take off in stormy conditions?? It implements the can't land thing.
     context 'weather conditions' do
       it 'a plane cannot take off when there is a storm brewing' do
         weather = double("weather", :good_to_fly? => true, :good_to_land? => true )

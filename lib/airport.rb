@@ -5,6 +5,9 @@ require_relative 'airTrafficControl'
 # It's a really unconventional way to split the responsibility: one class
 # holds the planes but doesn't care about their number (ATC) and another one
 # knows the capacity and planes number but doesn't hold the planes (Airport)
+# Hmm, once again fail to understand.  ATC controls the planes, whether they are
+# on the ground or flying.  Only one list of planes, held by ATC; less chance of error?
+
 class Airport
 
 	DEFAULT_CAPACITY = 5

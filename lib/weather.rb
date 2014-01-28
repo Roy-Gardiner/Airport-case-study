@@ -23,6 +23,7 @@ class Weather
 	def conditions
 		good_to_land = rand(1..10) != 10 # this created a local variable that is never used
 		good_to_fly = @good_to_land # because this line uses an instance variable
+																# another idiot error, thank you.
 		good_to_fly
 	end
 end

@@ -11,6 +11,8 @@ class AirTrafficControl
   	this_plane = Plane.new
     # this notation implies that you're assigning the entire attribute planes
     # You should have done either self.planes << this_plane or self << this_plane
+    # ?  next line uses the method to add the plane to the list -- don't understand
+    # the criticism
   	self.planes= this_plane
   	this_plane
   end 
@@ -24,6 +26,7 @@ class AirTrafficControl
   # and not simply a modification
   # you could have done
   # def << plane  
+  # don't undersand the criticism.
 	def planes= plane 
 		@planes << plane
 	end

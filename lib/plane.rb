@@ -12,6 +12,7 @@ class Plane
 	# the weather should  be the airport's business
 	def takeoff airport, weather
 		# all this logic should be in the airport
+		# Why?  It's the plane that's taking off and landing, not the airport.
 		if weather.good_to_fly?
 			self.status=  :flying
 			airport.taken_off
